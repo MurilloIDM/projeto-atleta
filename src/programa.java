@@ -8,10 +8,18 @@ public class programa {
 		Locale.setDefault(Locale.US);
 		Scanner input = new Scanner(System.in);
 		
-		String nome;
+		String nome, nomeMaisAlto = null;
 		char sexo, outroAtleta;
-		double pesoAtleta, alturaAtleta;
+		double pesoAtleta, alturaAtleta, atletaMaisAlto, alturaMulheres, pesoTotal;
+		int totalHomens, totalMulheres;
 		boolean flag = true;
+		
+		atletaMaisAlto = 0;
+		totalHomens = 0;
+		totalMulheres = 0;
+		atletaMaisAlto = 0;
+		alturaMulheres = 0;
+		pesoTotal = 0;
 		
 		while (flag) {
 			
@@ -39,6 +47,21 @@ public class programa {
 			System.out.print("Digitar outro atleta (S/N)? ");
 			outroAtleta = input.next().charAt(0);
 			
+			pesoTotal += pesoAtleta;
+			
+			if (sexo == 'M' || sexo == 'm') {
+				totalHomens =+ 1;
+			} else {
+				totalMulheres += 1;
+				alturaMulheres += alturaAtleta;
+			}
+			
+			if (atletaMaisAlto <= alturaAtleta) {
+				atletaMaisAlto = alturaAtleta;
+				nomeMaisAlto = nome;
+			}
+			
+			
 			
 			if (outroAtleta == 'N' || outroAtleta == 'n') {
 				flag = false;
@@ -46,6 +69,12 @@ public class programa {
 			
 			input.nextLine();
 		}
+		
+		System.out.println("\nRELATÓRIO: ");
+		System.out.printf("Peso médio dos atletas: %.2f%n", pesoTotal / (totalHomens + totalMulheres));
+		System.out.printf("Atleta mais alto: %s%n", nomeMaisAlto);
+		System.out.printf("Porcentagem de homens: %.1f %% %n", (totalHomens * 100.0) / (totalHomens + totalMulheres));
+		System.out.printf("Altura média das mulheres: %.2f%n", alturaMulheres / totalMulheres);
 		
 		System.out.println("\nFIM DO PROGRAMA");
 		input.close();
